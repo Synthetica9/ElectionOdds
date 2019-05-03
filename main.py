@@ -6,6 +6,7 @@ import pandas as pd
 import requests
 import re
 from datetime import datetime
+from itertools import repeat
 from textwrap import wrap
 
 from tools import cache
@@ -68,7 +69,7 @@ def visualise(df, outfile='out.png'):
 
     df.plot(title=title, ax=ax, sort_columns=True)
 
-    labelLines(plt.gca().get_lines(), align=False)
+    labelLines(plt.gca().get_lines(), align=False, xvals=repeat(df.index[-1]))
 
     plt.ylim(0, 1)
     plt.axhline(0.5, color='red', linestyle='--')
@@ -90,7 +91,7 @@ def main():
 
     suffixes = _final, _primary = ['_' + suf for suf in 'primary final'.split()]
     df = pd.merge_asof(primary, final, on=DATETIME, direction='nearest', suffixes=suffixes)
-    df.set_index(DATETIME, inplace=True)
+    df.set_index(DATETIME, inplace=True, drop=False)
 
     for name in inBoth:
         if name == DATETIME:

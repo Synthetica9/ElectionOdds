@@ -68,7 +68,7 @@ def visualise(df, outfile='out.png'):
 
     df.plot(title=title, ax=ax, sort_columns=True)
 
-    labelLines(plt.gca().get_lines())
+    labelLines(plt.gca().get_lines(), align=False)
 
     plt.ylim(0, 1)
     plt.axhline(0.5, color='red', linestyle='--')

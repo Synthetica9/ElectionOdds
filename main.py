@@ -10,6 +10,11 @@ from textwrap import wrap
 
 from tools import cache
 
+try:
+  from labellines import labelLines
+except:
+  labelLines = lambda *args, **kwargs: None
+
 http = requests.Session()
 
 urlPrimary = 'https://electionbettingodds.com/DemPrimary2020.html'
@@ -62,6 +67,8 @@ def visualise(df, outfile='out.png'):
     fig, ax = plt.subplots(figsize=(9.84, 13.9))
 
     df.plot(title=title, ax=ax, sort_columns=True)
+
+    labelLines(plt.gca().get_lines())
 
     plt.ylim(0, 1)
     plt.axhline(0.5, color='red', linestyle='--')

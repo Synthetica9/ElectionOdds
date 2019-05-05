@@ -3,6 +3,7 @@
 
 from matplotlib import pyplot as plt
 import pandas as pd
+import numpy as np
 import requests
 import re
 from datetime import datetime
@@ -72,7 +73,12 @@ def visualise(df, outfile='out.png'):
     labelLines(plt.gca().get_lines(), align=False, xvals=repeat(df.index[-1]), clip_on=False, horizontalalignment='left', backgroundcolor='#FFFFFF00')
 
     plt.ylim(0, 1)
-    plt.axhline(0.5, color='red', linestyle='--')
+
+    vals = np.linspace(0, 1, 20 + 1)
+    ax.set_yticks(vals)
+    ax.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
+    plt.axhline(0.5, color='red', linestyle='--') # Mark 50% line
+
     plt.grid(axis='y')
     plt.savefig(outfile)
     plt.close()

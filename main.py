@@ -83,6 +83,19 @@ def visualise(df, outfile='out.png'):
     ax.xaxis.set_major_locator(mdates.WeekdayLocator(0))
 
     fig.tight_layout()
+
+    props = dict(
+        boxstyle='round',
+        facecolor='white',
+        alpha=0.5
+    )
+    textstr = '\n'.join([
+        'How this is calculated:', 'https://en.wikipedia.org/wiki/Conditional_probability',
+        'Data sources:', urlPrimary, urlFinal
+    ])
+    ax.text(0.05, 0.05, textstr, transform=ax.transAxes, fontsize=14,
+        verticalalignment='bottom', bbox=props)
+
     plt.grid(axis='y')
     plt.savefig(outfile)
     plt.close()

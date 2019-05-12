@@ -81,6 +81,7 @@ def visualise(df, outfile='out.png'):
     plt.axhline(0.5, color='red', linestyle='--') # Mark 50% line
 
     ax.xaxis.set_major_locator(mdates.WeekdayLocator(0))
+    ax.xaxis.label.set_visible(False)
 
     fig.tight_layout()
 

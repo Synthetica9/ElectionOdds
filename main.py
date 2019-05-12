@@ -82,6 +82,7 @@ def visualise(df, outfile='out.png'):
 
     ax.xaxis.set_major_locator(mdates.WeekdayLocator(0))
 
+    fig.tight_layout()
     plt.grid(axis='y')
     plt.savefig(outfile)
     plt.close()

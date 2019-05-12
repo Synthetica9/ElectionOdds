@@ -9,6 +9,7 @@ import re
 from datetime import datetime
 from itertools import repeat
 from textwrap import wrap
+import matplotlib.dates as mdates
 
 from tools import cache
 
@@ -26,7 +27,7 @@ WINDOW = '5d'
 DATETIME = 'datetime'
 MONTH = 1
 
-DROPOFF_PERCENT = 2.0
+DROPOFF_PERCENT = 2
 
 
 def parseScript(html):
@@ -79,6 +80,8 @@ def visualise(df, outfile='out.png'):
     ax.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
     plt.axhline(0.5, color='red', linestyle='--') # Mark 50% line
 
+    ax.xaxis.set_major_locator(mdates.WeekdayLocator(0))
+
     plt.grid(axis='y')
     plt.savefig(outfile)
     plt.close()
@@ -108,7 +111,7 @@ def main():
     df = df[inBoth]
     df.sort_index(axis=1, inplace=True)
 
-    df = df.rolling(WINDOW, closed='right').mean()
+    df = df.rolling(WINDOW).mean()
     visualise(df)
 
 

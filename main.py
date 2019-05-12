@@ -29,6 +29,7 @@ MONTH = 1
 
 DROPOFF_PERCENT = 2
 
+BULLET = '• '
 
 def parseScript(html):
     columnRegex = r"data.addColumn\(\'number\'\, \'(\w+)\'\)"
@@ -91,9 +92,12 @@ def visualise(df, outfile='out.png'):
         alpha=0.5
     )
     textstr = '\n'.join([
-        'How this is calculated:', 'https://en.wikipedia.org/wiki/Conditional_probability',
-        'Data sources:', urlPrimary, urlFinal
+        'How this is calculated:', BULLET + 'https://en.wikipedia.org/wiki/Conditional_probability',
+        'Data sources:', BULLET + urlPrimary, BULLET + urlFinal,
+        'Source code:', BULLET + 'https://github.com/Synthetica9/ElectionOdds'
     ])
+
+    print(textstr)
     ax.text(0.05, 0.05, textstr, transform=ax.transAxes, fontsize=14,
         verticalalignment='bottom', bbox=props)
 

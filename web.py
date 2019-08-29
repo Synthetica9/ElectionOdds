@@ -15,7 +15,7 @@ app = Flask(__name__)
 @app.route('/')
 def send_index():
     main.main()
-    return send_file('out.png')
+    return send_file('out.svg')
 
 
 if __name__ == "__main__":

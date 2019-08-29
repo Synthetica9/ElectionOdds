@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import requests
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from itertools import repeat
 from textwrap import wrap
 import matplotlib.dates as mdates
@@ -26,6 +26,7 @@ urlFinal = 'https://electionbettingodds.com/President2020.html'
 WINDOW = '5d'
 DATETIME = 'datetime'
 MONTH = 1
+RANGE = timedelta(days=16 * 7)
 
 DROPOFF_PERCENT = 2
 
@@ -64,24 +65,21 @@ def getTable(url):
     return parseScript(raw)
 
 
-def visualise(df, outfile='out.png'):
+def visualise(df, outfile='out.svg'):
     title = f'Chances for winning the presidency for major candidates, given that they win the primary ({WINDOW} rolling mean)'
     title = '\n'.join(wrap(title, 60))
+    plt.style.use('fivethirtyeight')
 
-    fig, ax = plt.subplots(figsize=(9.84, 13.9))
+    fig, ax = plt.subplots(figsize=(13.9, 9.84))
 
     df.plot(title=title, ax=ax, sort_columns=True)
 
     labelLines(plt.gca().get_lines(), align=False, xvals=repeat(df.index[-1]), clip_on=False, horizontalalignment='left', backgroundcolor='#FFFFFF00')
 
-    plt.ylim(0, 1)
+    plt.axhline(0.5, color='lightgray', linestyle='--') # Mark 50% line
 
-    vals = np.linspace(0, 1, 20 + 1)
-    ax.set_yticks(vals)
-    ax.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
-    plt.axhline(0.5, color='red', linestyle='--') # Mark 50% line
+    ax.set_yticklabels(['{:,.0%}'.format(x) for x in ax.get_yticks()])
 
-    ax.xaxis.set_major_locator(mdates.WeekdayLocator(0))
     ax.xaxis.label.set_visible(False)
 
     fig.tight_layout()
@@ -131,6 +129,12 @@ def main():
     df.sort_index(axis=1, inplace=True)
 
     df = df.rolling(WINDOW).mean()
+
+    last_date = df.iloc[-1].name
+    cutoff_date = last_date - RANGE
+
+    df = df[df.index >= cutoff_date]
+
     visualise(df)
 
 

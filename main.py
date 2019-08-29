@@ -89,15 +89,6 @@ def visualise(df, outfile='out.svg'):
         facecolor='white',
         alpha=0.5
     )
-    textstr = '\n'.join([
-        'How this is calculated:', BULLET + 'https://en.wikipedia.org/wiki/Conditional_probability',
-        'Data sources:', BULLET + urlPrimary, BULLET + urlFinal,
-        'Source code:', BULLET + 'https://github.com/Synthetica9/ElectionOdds'
-    ])
-
-    print(textstr)
-    ax.text(0.05, 0.05, textstr, transform=ax.transAxes, fontsize=14,
-        verticalalignment='bottom', bbox=props)
 
     plt.grid(axis='y')
     plt.savefig(outfile)

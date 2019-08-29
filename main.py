@@ -81,6 +81,7 @@ def visualise(df, outfile='out.svg'):
     ax.set_yticklabels(['{:,.0%}'.format(x) for x in ax.get_yticks()])
 
     ax.xaxis.label.set_visible(False)
+    ax.xaxis.set_major_locator(mdates.WeekdayLocator(0))
 
     fig.tight_layout()
 

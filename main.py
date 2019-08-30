@@ -97,8 +97,8 @@ def visualise(df, outfile='out.svg'):
     ])
 
     print(textstr)
-    ax.text(0.05, 0.05, textstr, transform=ax.transAxes, fontsize=14,
-        verticalalignment='bottom', bbox=props)
+    ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=14,
+        verticalalignment='top', bbox=props)
 
     plt.grid(axis='y')
     plt.savefig(outfile)

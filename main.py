@@ -69,6 +69,7 @@ def visualise(df, outfile='out.svg'):
     title = f'Chances for winning the presidency for major candidates, given that they win the primary ({WINDOW} rolling mean)'
     title = '\n'.join(wrap(title, 60))
     plt.style.use('fivethirtyeight')
+    plt.rcParams['svg.fonttype'] = 'none'
 
     fig, ax = plt.subplots(figsize=(13.9, 9.84))
 

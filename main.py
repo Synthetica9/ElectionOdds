@@ -27,6 +27,7 @@ WINDOW = '5d'
 DATETIME = 'datetime'
 MONTH = 1
 RANGE = timedelta(days=16 * 7)
+BANNED_CANDIDATES = frozenset('Clinton'.split())  # Sorry Hillary, but you're not officially running and clouding my chart.
 
 DROPOFF_PERCENT = 2
 
@@ -113,7 +114,7 @@ def main():
 
     final = final.loc[:, final.iloc[-1] >= DROPOFF_PERCENT]
 
-    inBoth = primary.columns & final.columns
+    inBoth = set(primary.columns) & set(final.columns) - BANNED_CANDIDATES
     primary = primary[inBoth]
     final = final[inBoth]
 

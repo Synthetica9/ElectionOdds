@@ -20,16 +20,17 @@ except:
 
 http = requests.Session()
 
-urlPrimary = 'https://electionbettingodds.com/DemPrimary2020.html'
-urlFinal = 'https://electionbettingodds.com/President2020.html'
+urlPrimary = 'https://electionbettingodds.com/DEMPrimary2024.html'
+urlFinal = 'https://electionbettingodds.com/President2024.html'
 
 WINDOW = '5d'
 DATETIME = 'datetime'
 MONTH = 1
 RANGE = timedelta(days=16 * 7)
-BANNED_CANDIDATES = frozenset('Clinton'.split())  # Sorry Hillary, but you're not officially running and clouding my chart.
+# BANNED_CANDIDATES = frozenset('Clinton'.split())  # Sorry Hillary, but you're not officially running and clouding my chart.
+BANNED_CANDIDATES = frozenset()
 
-DROPOFF_PERCENT = 2
+DROPOFF_PERCENT = 1.5
 
 BULLET = '• '
 
